@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Interview</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <h1>My Interview Portal</h1>
+            <hr>
+            <div class="col-md-12">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Test</th>
+                            <th>No of Questions</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let test of this.tests;let id =index">
+                            <td>{{test.name}}</td>
+                            <td>{{test.questions.length}}</td>
+                            <td><a class="btn btn-warning" routerLink="/onlinetest/{{test.name}}"
+                                routerLinkActivate="active" (click)="setAnsArr(test.name)"> >Start Test</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        API Url: <a href="http://interviewapi.stagging.in/getQuizData" target="_blank">http://interviewapi.stagging.in/getQuizData</a>
+    </div>
+    
+</body>
+
+</html>

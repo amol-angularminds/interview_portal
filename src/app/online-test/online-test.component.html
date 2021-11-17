@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Interview</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <h1>My Interview Portal</h1>
+            <hr>
+            <div class="col-md-12">
+                <div class="panel panel-default" *ngIf="!this.finishTest;else end">
+                    <div class="panel-heading">{{this.testDataArr.name}}</div>
+                    <div class="panel-body">
+                        <label>{{this.questionArr[getCounter()].questionText}}</label>
+
+                        <form [formGroup]="form">
+                            <div class="form-group"
+                                *ngIf="this.questionArr[getCounter()].type == 'Multiple-Response';else multipleChoice">
+                                <div *ngFor="let option of this.questionArr[getCounter()].options;let id=index">
+                                    <div class="radio">
+                                        <label for="checkboxAns">
+                                            <input type="checkbox" name="option" [value]="id" [checked]="compCBAns(id)"
+                                                (change)="opStoreArr(id)" multiple> {{option}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <ng-template #multipleChoice>
+                                <div *ngFor="let option of this.questionArr[getCounter()].options;let id=index">
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="option" [checked]="compRBAns(id)"
+                                                (change)="checkRadioBoxvalue($event)" value="{{id}}"> {{option}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </form>
+                    </div>
+                    <div class="panel-footer">
+                        <a *ngIf="getCounter() != 0" class="btn btn-success" style="margin-right: 5px;"
+                            routerLink="/onlinetest/{{this.testDataArr.name}}" routerLinkActive="active"
+                            (click)="prevQues()">Previous</a>
+                        <a *ngIf="getCounter()!=this.questionArr.length-1" class="btn btn-success"
+                            routerLink="/onlinetest/{{this.testDataArr.name}}" routerLinkActive="active"
+                            (click)="nextQues()">Next</a>
+                        <a (click)="finishBtn()" class="pull-right btn btn-danger">Finish</a>
+                    </div>
+                </div>
+                <ng-template #end>
+                    <app-finish [totalQuestion]="totalQuestion"> </app-finish>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</body>
+
+</html>
