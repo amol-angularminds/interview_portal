@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DataService } from '../service/data.service';
-import { FormBuilder, FormGroup, FormControl, FormArray } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, UntypedFormControl, UntypedFormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-test',
@@ -22,10 +22,10 @@ export class TestComponent implements OnInit {
   usersAns: [] = [];
   correctAns: [] = [];
 
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   constructor(private route: Router, private activatRoute: ActivatedRoute,
-    private formBuilder: FormBuilder, private dataservice: DataService) {
+    private formBuilder: UntypedFormBuilder, private dataservice: DataService) {
 
     this.testName = this.activatRoute.snapshot.params.testName;
     if (TestComponent.counter != null) {
@@ -34,7 +34,7 @@ export class TestComponent implements OnInit {
 
     this.form = this.formBuilder.group({
       checkboxAns: this.formBuilder.array([]),
-      selectedRdo: new FormControl('')
+      selectedRdo: new UntypedFormControl('')
     })
 
     setTimeout(() => {
@@ -48,9 +48,9 @@ export class TestComponent implements OnInit {
   }
 
   onCheckboxChange(e: any) {
-    const checkboxAns: FormArray = this.form.get('checkboxAns') as FormArray;
+    const checkboxAns: UntypedFormArray = this.form.get('checkboxAns') as UntypedFormArray;
     if (e.target.checked) {
-      checkboxAns.push(new FormControl(parseInt(e.target.value)));
+      checkboxAns.push(new UntypedFormControl(parseInt(e.target.value)));
     }
     else {
       const index = checkboxAns.controls.findIndex(x => x.value === e.target.value);

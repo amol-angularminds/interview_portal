@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DataService } from '../service/data.service';
-import { FormBuilder, FormGroup, FormControl, FormArray } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, FormControl, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-online-test',
@@ -20,12 +20,12 @@ export class OnlineTestComponent implements OnInit {
   public selectedAns: any;
 
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   objectAnsData: any;
   opArr: any = [];
 
   constructor(private route: Router, private activatRoute: ActivatedRoute,
-    private formBuilder: FormBuilder, private dataservice: DataService) {
+    private formBuilder: UntypedFormBuilder, private dataservice: DataService) {
 
     this.testName = this.activatRoute.snapshot.params.testName;
     if (OnlineTestComponent.counter != null) {
